@@ -1,5 +1,5 @@
 const rtcpeerconn = new RTCPeerConnection(
-    {iceServers: [{'url': 'stun:stun.l.google.com:19302'}]},
+    {iceServers: [{'urls': ['stun:stun.l.google.com:19302']}]},
     {optional: [{RtpDataChannels: false}]}
 );
 
