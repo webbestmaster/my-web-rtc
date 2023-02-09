@@ -31,13 +31,17 @@
 
             rtcpeerconn.createOffer(function (offer) {
                 rtcpeerconn.setLocalDescription(offer, function () {
+
+/*
                     var output = offer.toJSON();
+
                     if (typeof output === 'string') output = JSON.parse(output); // normalize: RTCSessionDescription.toJSON returns a json str in FF, but json obj in Chrome
+*/
 
                     websocket.send(JSON.stringify({
                         inst: 'send',
                         peerId: peerId,
-                        message: output
+                        message: offer
                     }));
                 }, onerror);
             }, onerror);
@@ -59,13 +63,13 @@
             rtcpeerconn.setRemoteDescription(offer, function () {
                 rtcpeerconn.createAnswer(function (answer) {
                     rtcpeerconn.setLocalDescription(answer, function () {
-                        var output = answer.toJSON();
-                        if (typeof output === 'string') output = JSON.parse(output); // normalize: RTCSessionDescription.toJSON returns a json str in FF, but json obj in Chrome
+                        // var output = answer.toJSON();
+                        // if (typeof output === 'string') output = JSON.parse(output); // normalize: RTCSessionDescription.toJSON returns a json str in FF, but json obj in Chrome
 
                         websocket.send(JSON.stringify({
                             inst: 'send',
                             peerId: peerId,
-                            message: output
+                            message: answer
                         }));
                     }, onerror);
                 }, onerror);
